@@ -94,11 +94,9 @@ const MAX_QUANTITY = 5;
 const productById = new Map(PRODUCTS.map((product) => [product.id, product]));
 
 export const formatUSD = (amount) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
+  `USD ${new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 0,
-  }).format(amount);
+  }).format(amount)}`;
 
 const sanitiseCart = (cart) => {
   if (!cart || typeof cart !== "object" || Array.isArray(cart)) return {};
