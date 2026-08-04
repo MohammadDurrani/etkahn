@@ -29,6 +29,25 @@ npm test
 
 The test command builds the production worker and verifies the homepage, checkout, policy routes, eight USD-priced packages, and cart scripts.
 
-## Hosting
+## Cloudflare Workers deployment
 
-`.openai/hosting.json` links this repository to the existing Etkahn Sites project. Build artifacts are generated in `dist/` and deployed through the Sites publishing workflow.
+`wrangler.jsonc` is the production source of truth for the `etkahn` Worker and its `etkahn.com` custom domain. The Vite Cloudflare plugin produces the Worker bundle and static assets in `dist/`.
+
+For Cloudflare Workers Builds, connect this GitHub repository with:
+
+- production branch: `main`
+- build command: `npm test`
+- deploy command: `npx wrangler deploy`
+- non-production deploy command: `npx wrangler versions upload`
+- root directory: `/`
+
+After that one-time connection, pushes to `main` deploy automatically and other branches receive preview versions.
+
+For a local deployment after authenticating Wrangler:
+
+```bash
+npm test
+npm run deploy
+```
+
+`.openai/hosting.json` retains the existing Etkahn Sites project link as a separate fallback hosting target.
