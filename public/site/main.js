@@ -11,6 +11,59 @@ const reveals = [...document.querySelectorAll(".reveal")];
 const cartCountElements = [...document.querySelectorAll("[data-cart-count]")];
 const addProductButtons = [...document.querySelectorAll("[data-add-product]")];
 const cartToast = document.querySelector("[data-cart-toast]");
+const copyPhoneButtons = [...document.querySelectorAll("[data-copy-phone]")];
+
+const copyText = async (text) => {
+  if (navigator.clipboard?.writeText && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.readOnly = true;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.append(textarea);
+  textarea.select();
+  const copied = document.execCommand("copy");
+  textarea.remove();
+
+  if (!copied) throw new Error("Clipboard copy was unavailable");
+};
+
+if (copyPhoneButtons.length) {
+  const copyStatus = document.createElement("span");
+  copyStatus.className = "sr-only";
+  copyStatus.setAttribute("role", "status");
+  copyStatus.setAttribute("aria-live", "polite");
+  document.body.append(copyStatus);
+
+  copyPhoneButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const phone = button.dataset.copyPhone;
+      const hint = button.querySelector("[data-copy-hint]");
+
+      try {
+        await copyText(phone);
+        button.classList.add("is-copied");
+        if (hint) hint.textContent = "Copied ✓";
+        copyStatus.textContent = `${phone} copied to clipboard.`;
+
+        window.setTimeout(() => {
+          button.classList.remove("is-copied");
+          if (hint) hint.textContent = "Copy";
+        }, 1800);
+      } catch {
+        if (hint) hint.textContent = "Copy failed";
+        copyStatus.textContent = `Could not copy ${phone}.`;
+        window.setTimeout(() => {
+          if (hint) hint.textContent = "Copy";
+        }, 1800);
+      }
+    });
+  });
+}
 
 const updateCartCount = () => {
   const count = getCartCount();

@@ -8,7 +8,7 @@ The site includes:
 - eight technology services and eight productised packages priced in USD
 - a persistent cart and invoice-by-email checkout
 - privacy, terms, returns/refunds, and shipping/service-delivery policies
-- local office and contact placeholders ready to be replaced
+- consistent local office and public contact details across the site and policies
 
 ## Local development
 

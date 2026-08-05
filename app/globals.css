@@ -1591,6 +1591,35 @@ button:focus-visible {
   line-height: 1.7;
 }
 
+.contact-copy {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0;
+  color: rgba(255, 255, 255, 0.72);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  text-align: left;
+}
+
+.contact-copy-hint {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.contact-copy:hover .contact-copy-hint,
+.contact-copy.is-copied .contact-copy-hint {
+  color: var(--acid);
+}
+
 .site-footer {
   padding: 4rem var(--gutter) 1.5rem;
   color: var(--white);

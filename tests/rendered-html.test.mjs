@@ -44,6 +44,9 @@ test("server-renders the Etkahn homepage and eight USD packages", async () => {
   assert.match(html, /Terms &amp; conditions/i);
   assert.match(html, /Returns &amp; refunds/i);
   assert.match(html, /Shipping &amp; service delivery/i);
+  assert.match(html, /Gate 362-B, Street 33/i);
+  assert.match(html, /F-11\/2, Islamabad, Pakistan/i);
+  assert.match(html, /data-copy-phone=(?:&quot;|")\+923439855566/i);
 });
 
 test("renders checkout and every required policy route", async () => {
@@ -58,14 +61,21 @@ test("renders checkout and every required policy route", async () => {
   for (const [pathname, marker] of routes) {
     const response = await render(pathname);
     assert.equal(response.status, 200, pathname);
-    assert.match(await response.text(), marker, pathname);
+    const html = await response.text();
+    assert.match(html, marker, pathname);
+
+    if (pathname !== "/checkout") {
+      assert.match(html, /Gate 362-B, Street 33, F-11\/2, Islamabad, Pakistan/i, pathname);
+      assert.match(html, /\+923439855566/i, pathname);
+    }
   }
 });
 
 test("ships the persistent cart and invoice checkout modules", async () => {
-  const [store, checkout] = await Promise.all([
+  const [store, checkout, main] = await Promise.all([
     readFile(new URL("../public/site/store.js", import.meta.url), "utf8"),
     readFile(new URL("../public/site/checkout.js", import.meta.url), "utf8"),
+    readFile(new URL("../public/site/main.js", import.meta.url), "utf8"),
   ]);
 
   assert.match(store, /localStorage/);
@@ -73,4 +83,6 @@ test("ships the persistent cart and invoice checkout modules", async () => {
   assert.match(store, /technology-partner/);
   assert.match(checkout, /mailto:/);
   assert.match(checkout, /USD/);
+  assert.match(main, /data-copy-phone/);
+  assert.match(main, /navigator\.clipboard/);
 });
