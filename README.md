@@ -5,7 +5,7 @@ Etkahn's technology and automation studio website, built with React, vinext, and
 The site includes:
 
 - a Famous-inspired agency homepage
-- eight technology services and eight productised packages priced in USD
+- eight technology services and eight productised packages priced in PKR
 - a persistent cart and invoice-by-email checkout
 - privacy, terms, returns/refunds, and shipping/service-delivery policies
 - consistent local office and public contact details across the site and policies
@@ -27,11 +27,13 @@ Open `http://localhost:5173`. Do not open the HTML source files directly; the de
 npm test
 ```
 
-The test command builds the production worker and verifies the homepage, checkout, policy routes, eight USD-priced packages, and cart scripts.
+The test command builds the production worker and verifies the homepage, checkout, policy routes, eight PKR-priced packages, and cart scripts.
+
+The current PKR package prices use an approximate conversion rate of PKR 278 per USD, rounded from the State Bank of Pakistan M2M rate of 277.6522 on 13 August 2026.
 
 ## Cloudflare Workers deployment
 
-`wrangler.jsonc` is the production source of truth for the `etkahn` Worker and its `etkahn.com` custom domain. The Vite Cloudflare plugin produces the Worker bundle and static assets in `dist/`.
+`wrangler.jsonc` is the production source of truth for the `etkahn` Worker and its `etkahn.com` and `www.etkahn.com` custom domains. The Vite Cloudflare plugin produces the Worker bundle and static assets in `dist/`.
 
 For Cloudflare Workers Builds, connect this GitHub repository with:
 

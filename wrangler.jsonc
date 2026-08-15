@@ -18,6 +18,10 @@
     {
       "pattern": "etkahn.com",
       "custom_domain": true
+    },
+    {
+      "pattern": "www.etkahn.com",
+      "custom_domain": true
     }
   ],
   "observability": {

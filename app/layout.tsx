@@ -15,6 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: baseUrl,
     title,
     description,
+    alternates: { canonical: "https://etkahn.com" },
     icons: { icon: "/favicon.svg" },
     openGraph: {
       title,

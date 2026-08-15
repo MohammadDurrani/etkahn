@@ -1,7 +1,7 @@
 import "./main.js";
 import {
   clearCart,
-  formatUSD,
+  formatPKR,
   getCart,
   getCartItems,
   getCartSubtotal,
@@ -39,14 +39,14 @@ const renderCheckout = () => {
             <div class="checkout-item-copy">
               <small>${item.category} · ${item.timeline}</small>
               <h3>${item.name}</h3>
-              <p>${formatUSD(item.price)} · ${item.priceSuffix}</p>
+              <p>${formatPKR(item.price)} · ${item.priceSuffix}</p>
             </div>
             <div class="quantity-control" aria-label="Quantity for ${item.name}">
               <button type="button" data-quantity-action="decrease" data-product-id="${item.id}" aria-label="Decrease ${item.name} quantity">−</button>
               <output aria-live="polite">${item.quantity}</output>
               <button type="button" data-quantity-action="increase" data-product-id="${item.id}" aria-label="Increase ${item.name} quantity">+</button>
             </div>
-            <strong>${formatUSD(item.lineTotal)}</strong>
+            <strong>${formatPKR(item.lineTotal)}</strong>
             <button class="remove-item" type="button" data-remove-product="${item.id}">Remove</button>
           </article>
         `,
@@ -54,7 +54,7 @@ const renderCheckout = () => {
       .join("");
   }
 
-  const subtotal = formatUSD(getCartSubtotal(cart));
+  const subtotal = formatPKR(getCartSubtotal(cart));
   subtotalElements.forEach((element) => {
     element.textContent = subtotal;
   });
@@ -95,7 +95,7 @@ checkoutForm?.addEventListener("submit", (event) => {
   const formData = new FormData(checkoutForm);
   const reference = `ETK-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
   const orderLines = items.map(
-    (item) => `${item.quantity} × ${item.name} — ${formatUSD(item.lineTotal)}`,
+    (item) => `${item.quantity} × ${item.name} — ${formatPKR(item.lineTotal)}`,
   );
   const emailBody = [
     "Etkahn service package order",
@@ -110,7 +110,7 @@ checkoutForm?.addEventListener("submit", (event) => {
     "Packages:",
     ...orderLines,
     "",
-    `Indicative subtotal before applicable taxes: ${formatUSD(getCartSubtotal())}`,
+    `Indicative subtotal before applicable taxes: ${formatPKR(getCartSubtotal())}`,
     "",
     `Project context: ${formData.get("context") || "Not provided"}`,
     "",

@@ -23,7 +23,7 @@ async function render(pathname) {
   );
 }
 
-test("server-renders the Etkahn homepage and eight USD packages", async () => {
+test("server-renders the Etkahn homepage and eight PKR packages", async () => {
   const response = await render("/");
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
@@ -36,8 +36,8 @@ test("server-renders the Etkahn homepage and eight USD packages", async () => {
   );
   assert.equal(packageIds.size, 8);
 
-  for (const price of ["350", "800", "1,000", "1,600", "1,150", "850", "300", "625"]) {
-    assert.match(html, new RegExp(`USD ${price.replace(",", ",?")}`));
+  for (const price of ["97,300", "222,400", "278,000", "444,800", "319,700", "236,300", "83,400", "173,750"]) {
+    assert.match(html, new RegExp(`PKR ${price.replace(",", ",?")}`));
   }
 
   assert.match(html, /Privacy policy/i);
@@ -82,7 +82,15 @@ test("ships the persistent cart and invoice checkout modules", async () => {
   assert.match(store, /workflow-diagnostic/);
   assert.match(store, /technology-partner/);
   assert.match(checkout, /mailto:/);
-  assert.match(checkout, /USD/);
+  assert.match(checkout, /PKR/);
   assert.match(main, /data-copy-phone/);
   assert.match(main, /navigator\.clipboard/);
+});
+
+test("declares both production custom domains", async () => {
+  const config = JSON.parse(await readFile(new URL("../wrangler.jsonc", import.meta.url), "utf8"));
+  assert.deepEqual(
+    config.routes,
+    ["etkahn.com", "www.etkahn.com"].map((pattern) => ({ pattern, custom_domain: true })),
+  );
 });

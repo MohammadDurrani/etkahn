@@ -5,7 +5,7 @@ export const PRODUCTS = Object.freeze([
     category: "Diagnose",
     name: "Systems & Workflow Diagnostic",
     shortName: "Workflow Diagnostic",
-    price: 350,
+    price: 97300,
     priceSuffix: "fixed package",
     timeline: "5 business days",
     description: "A focused review of how work, information, and decisions move through your business.",
@@ -16,7 +16,7 @@ export const PRODUCTS = Object.freeze([
     category: "Automate",
     name: "Business Automation Sprint",
     shortName: "Automation Sprint",
-    price: 800,
+    price: 222400,
     priceSuffix: "fixed package",
     timeline: "2 weeks",
     description: "Redesign and automate one high-friction workflow, then hand it over clearly.",
@@ -27,7 +27,7 @@ export const PRODUCTS = Object.freeze([
     category: "Connect",
     name: "Systems Integration Setup",
     shortName: "Integration Setup",
-    price: 1000,
+    price: 278000,
     priceSuffix: "starting package",
     timeline: "2–3 weeks",
     description: "Connect two standard business platforms with mapped, tested data movement.",
@@ -38,7 +38,7 @@ export const PRODUCTS = Object.freeze([
     category: "Build",
     name: "Internal Tool Prototype",
     shortName: "Tool Prototype",
-    price: 1600,
+    price: 444800,
     priceSuffix: "starting package",
     timeline: "3–4 weeks",
     description: "A working prototype for the missing operational tool your team needs most.",
@@ -49,7 +49,7 @@ export const PRODUCTS = Object.freeze([
     category: "Launch",
     name: "Conversion Website Launch",
     shortName: "Website Launch",
-    price: 1150,
+    price: 319700,
     priceSuffix: "starting package",
     timeline: "3–4 weeks",
     description: "Strategy, design, and development for a fast five-page business website.",
@@ -60,7 +60,7 @@ export const PRODUCTS = Object.freeze([
     category: "See",
     name: "Reporting Dashboard Build",
     shortName: "Dashboard Build",
-    price: 850,
+    price: 236300,
     priceSuffix: "starting package",
     timeline: "2–3 weeks",
     description: "A decision-ready dashboard connecting up to three agreed data sources.",
@@ -71,7 +71,7 @@ export const PRODUCTS = Object.freeze([
     category: "Embed",
     name: "Team Enablement Workshop",
     shortName: "Team Workshop",
-    price: 300,
+    price: 83400,
     priceSuffix: "per workshop",
     timeline: "1 working day",
     description: "Practical, role-based training for up to twelve people, with usable materials.",
@@ -82,7 +82,7 @@ export const PRODUCTS = Object.freeze([
     category: "Improve",
     name: "Technology Partner — 30 Days",
     shortName: "Technology Partner",
-    price: 625,
+    price: 173750,
     priceSuffix: "per 30 days",
     timeline: "Renewable monthly",
     description: "A reserved monthly block for technical stewardship, support, and continuous improvement.",
@@ -93,8 +93,8 @@ const CART_KEY = "etkahn-cart-v1";
 const MAX_QUANTITY = 5;
 const productById = new Map(PRODUCTS.map((product) => [product.id, product]));
 
-export const formatUSD = (amount) =>
-  `USD ${new Intl.NumberFormat("en-US", {
+export const formatPKR = (amount) =>
+  `PKR ${new Intl.NumberFormat("en-PK", {
     maximumFractionDigits: 0,
   }).format(amount)}`;
 
