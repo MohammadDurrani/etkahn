@@ -1,0 +1,36 @@
+---
+import Site from '../layouts/Site.astro';
+import ProjectMedia from '../components/ProjectMedia.astro';
+import Closing from '../components/Closing.astro';
+import Arrow from '../components/Arrow.astro';
+import { projects } from '../data/projects';
+---
+<Site title="Selected Work — Etkahn" description="Explore selected Etkahn projects, including Pankaj Mishra’s author website, Aureon Hub, and Goldfinch Construction.">
+  <section class="wrap work-hero">
+    <p class="eyebrow"><span class="signal"></span> Portfolio / 01–03</p>
+    <div class="page-heading"><h1>Selected <em>work.</em></h1><p class="lead">Three projects from the studio, from an author website rebuild to work with businesses in engineering and construction.</p></div>
+    <nav class="work-jumps" aria-label="Projects">
+      {projects.map(({ id, name, number }) => <a href={`#${id}`}><span class="micro">{number}</span>{name}<Arrow /></a>)}
+    </nav>
+  </section>
+
+  <div class="wrap work-list">
+    {projects.map((project) => (
+      <article id={project.id} class="work-entry">
+        <ProjectMedia project={project} />
+        <div class="work-entry-copy">
+          <p class="eyebrow"><span class="section-index">{project.number} /</span> {project.category}</p>
+          <h2>{project.name}</h2>
+          <p class="lead">{project.summary}</p>
+          {(project.challenge || project.approach || project.result) && <dl>
+            {project.challenge && <div><dt class="eyebrow">Challenge</dt><dd>{project.challenge}</dd></div>}
+            {project.approach && <div><dt class="eyebrow">Approach</dt><dd>{project.approach}</dd></div>}
+            {project.result && <div><dt class="eyebrow">Result</dt><dd>{project.result}</dd></div>}
+          </dl>}
+        </div>
+      </article>
+    ))}
+    <p class="portfolio-note micro">More work will be added as it’s ready to share.</p>
+  </div>
+  <Closing title="What are you" accent="working on?" description="Tell us about the project or problem you have in mind." label="Get a quote" />
+</Site>
