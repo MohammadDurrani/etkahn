@@ -15,31 +15,30 @@ const values = [
 ---
 <Site title="About — Etkahn" description="Meet Etkahn, an independent software and technology studio in Pakistan. Learn how we scope, build, test, and hand over our work.">
   <section class="wrap about-hero">
-    <p class="eyebrow"><span class="signal"></span> About the studio</p>
     <h1>Technology should make <em>work easier.</em></h1>
-    <div class="about-hero-foot"><p class="lead">Working with the people who build it should be just as straightforward.</p><span class="micro">Etkahn <b>·</b> Pakistan</span></div>
+    <p class="lead">Working with the people who build it should be just as straightforward.</p>
   </section>
 
   <section class="section values-band">
     <div class="wrap editorial-split">
-      <div><p class="eyebrow"><span class="section-index">01 /</span> What we believe</p><h2>Standards we<br /><em>work by.</em></h2></div>
-      <ol class="values-list" role="list">
-        {values.map(({ title, detail }, index) => <li><span class="micro">0{index + 1}</span><div><h3>{title}</h3><p>{detail}</p></div></li>)}
-      </ol>
+      <h2>Standards we<br /><em>work by.</em></h2>
+      <ul class="values-list" role="list">
+        {values.map(({ title, detail }) => <li><h3>{title}</h3><p>{detail}</p></li>)}
+      </ul>
     </div>
   </section>
 
   <section class="section wrap editorial-split process-section">
-    <div class="section-intro"><p class="eyebrow"><span class="section-index">02 /</span> Working together</p><h2>From first call<br /> <em>to handover.</em></h2><p class="lead">At each stage, you know what we’re working on, what decisions are open, and what happens next.</p></div>
+    <div class="section-intro"><h2>From first call<br /> <em>to handover.</em></h2><p class="lead">At each stage, you know what we’re working on, what decisions are open, and what happens next.</p></div>
     <ol class="timeline" role="list">
-      {process.map(({ title, detail }, index) => <li><span class="micro">0{index + 1}</span><div><h3>{title}</h3><p>{detail}</p></div></li>)}
+      {process.map(({ title, detail }) => <li><h3>{title}</h3><p>{detail}</p></li>)}
     </ol>
   </section>
 
   <section class="section studio-band">
     <div class="wrap studio-layout">
       <div class="studio-symbol" aria-hidden="true"><span class="micro">ETK / STUDIO</span><Mark /><span class="micro">PK / INDEPENDENT</span></div>
-      <div><p class="eyebrow"><span class="section-index">03 /</span> The studio</p><h2>Independent.<br /><em>Based in Pakistan.</em></h2><p class="lead">Etkahn is a software and technology studio. We work with businesses, founders, and individuals who need careful engineering and clear communication, whether the job is a small repair or a new system.</p><a href="/work" class="text-link">See our work <Arrow /></a></div>
+      <div><h2>Independent.<br /><em>Based in Pakistan.</em></h2><p class="lead">Etkahn is a software and technology studio. We work with businesses, founders, and individuals who need careful engineering and clear communication, whether the job is a small repair or a new system.</p><a href="/work" class="text-link">See our work <Arrow /></a></div>
     </div>
   </section>
   <Closing title="Let’s talk about" accent="what you need." description="Share what you’re trying to achieve and what’s getting in the way." label="Get a quote" />

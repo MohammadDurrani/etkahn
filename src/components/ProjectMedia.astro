@@ -3,7 +3,7 @@ import type { Project } from '../data/projects';
 
 interface Props { project: Project; preview?: boolean }
 const { project, preview = false } = Astro.props;
-const { id, name, number, category, media } = project;
+const { id, name, media } = project;
 const still = media?.image || media?.poster;
 const hasVideo = !preview && (media?.video?.webm || media?.video?.mp4);
 ---
@@ -19,7 +19,6 @@ const hasVideo = !preview && (media?.video?.webm || media?.video?.mp4);
       <img src={still} srcset={media?.srcset} sizes={media?.sizes} alt={media?.alt ?? name} loading="lazy" decoding="async" />
     ) : (
       <div class="project-art" aria-hidden="true">
-        <div class="art-meta micro"><span>ETK / {number}</span><span>{category}</span></div>
         <svg class="art-motif" viewBox="0 0 500 330" fill="none">
           {id === 'pankaj-mishra' ? (
             <g transform="rotate(-15 350 166)">

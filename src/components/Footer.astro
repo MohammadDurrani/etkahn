@@ -11,11 +11,9 @@ import { email, navigation } from '../data/site';
         <p>We shape software around the way you work.</p>
       </div>
       <nav aria-label="Footer navigation">
-        <span class="eyebrow">Explore</span>
         <div>{navigation.slice(1).map(({ href, label }) => <a href={href}>{label}</a>)}</div>
       </nav>
       <div class="footer-contact">
-        <span class="eyebrow">Get in touch</span>
         <a href={`mailto:${email}`} class="text-link">{email} <Arrow /></a>
       </div>
     </div>

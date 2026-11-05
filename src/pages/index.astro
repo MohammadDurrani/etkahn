@@ -16,8 +16,7 @@ const approach = [
 <Site title="Etkahn — Independent Software & Technology Studio" description="Etkahn builds websites and custom software, connects systems, and repairs existing technology. An independent studio based in Pakistan.">
   <section class="home-hero wrap">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="signal"></span> Independent technology studio</p>
-      <h1>Technology that <em>fits the way<br class="hero-break" /> you work.</em></h1>
+      <h1>Technology that <em>fits the way you work.</em></h1>
       <p class="lead">We build websites and software, improve the systems you rely on, and connect the tools that keep your work moving.</p>
       <div class="hero-actions">
         <a class="button" href="/contact">Get a quote <Arrow /></a>
@@ -25,33 +24,30 @@ const approach = [
       </div>
     </div>
     <SystemDiagram />
-    <div class="hero-index micro"><span>01 / The studio</span><span>Design <b>+</b> Engineering</span><span>Based in Pakistan <b>↗</b></span></div>
   </section>
 
   <section class="section wrap editorial-split">
     <div class="section-intro">
-      <p class="eyebrow"><span class="section-index">01 /</span> Capabilities</p>
       <h2>What we <em>do.</em></h2>
       <p class="lead">From a new website to a stubborn technical problem, we find the approach that fits the work.</p>
       <a href="/services" class="text-link">Explore our services <Arrow /></a>
     </div>
-    <ol class="service-index" role="list">
+    <ul class="service-index" role="list">
       {services.map((service) => (
         <li>
           <a href={`/services#${service.id}`}>
-            <span class="micro">{service.number}</span>
             <div><h3>{service.title}</h3><p>{service.summary}</p></div>
             <Arrow />
           </a>
         </li>
       ))}
-    </ol>
+    </ul>
   </section>
 
   <section class="section work-band">
     <div class="wrap">
       <div class="section-head">
-        <div><p class="eyebrow"><span class="section-index">02 /</span> Portfolio</p><h2>Selected <em>work.</em></h2></div>
+        <h2>Selected <em>work.</em></h2>
         <a href="/work" class="text-link">View all work <Arrow /></a>
       </div>
       <div class="project-grid">
@@ -59,8 +55,7 @@ const approach = [
           <article class="project-card">
             <a href={`/work#${project.id}`} aria-label={`View ${project.name}`}>
               <ProjectMedia project={project} preview />
-              <div class="project-meta"><span class="eyebrow">{project.category}</span><Arrow /></div>
-              <h3>{project.name}</h3>
+              <div class="project-meta"><h3>{project.name}</h3><Arrow /></div>
               <p>{project.summary}</p>
             </a>
           </article>
@@ -71,11 +66,11 @@ const approach = [
 
   <section class="section wrap">
     <div class="section-head">
-      <div><p class="eyebrow"><span class="section-index">03 /</span> Our approach</p><h2>How we <em>work.</em></h2></div>
+      <h2>How we <em>work.</em></h2>
       <a href="/about" class="text-link">Get to know the studio <Arrow /></a>
     </div>
     <ol class="approach-grid" role="list">
-      {approach.map((step, index) => <li><span class="micro">0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}
+      {approach.map((step) => <li><h3>{step.title}</h3><p>{step.text}</p></li>)}
     </ol>
   </section>
 

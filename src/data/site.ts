@@ -9,28 +9,28 @@ export const navigation = [
 
 export const services = [
   {
-    id: 'websites', number: '01', title: 'Websites & digital experiences', short: 'Websites',
+    id: 'websites', title: 'Websites & digital experiences',
     summary: 'Give people a clearer, faster way to find you, understand your offer, and take the next step.',
     problem: 'Your site feels dated, is difficult to update, or makes visitors work too hard on mobile. Or you’re starting from scratch and need to decide what belongs on the site in the first place.',
     offer: ['Website planning, design, and development', 'Astro, WordPress, and CMS integration', 'Mobile usability, accessibility, and performance'],
     outcome: 'A site people can use easily and your team can keep current.',
   },
   {
-    id: 'software', number: '02', title: 'Custom software & tools', short: 'Software',
+    id: 'software', title: 'Custom software & tools',
     summary: 'Replace spreadsheet workarounds with tools shaped around the work your team actually does.',
     problem: 'A useful process has grown around spreadsheets, shared folders, or software that only partly fits. The workaround takes time and makes it harder to see what’s happening.',
     offer: ['Custom web applications and internal tools', 'Dashboards and focused utilities', 'Interfaces built around your team’s workflow'],
     outcome: 'A focused tool that fits the job and is easier for your team to use.',
   },
   {
-    id: 'integrations', number: '03', title: 'Integrations, automation & AI', short: 'Integrations',
+    id: 'integrations', title: 'Integrations, automation & AI',
     summary: 'Connect the systems you already use and give repetitive work a reliable way to run.',
     problem: 'The same information gets typed into several tools. Reports take hours to assemble, or handoffs break because nobody knows which system is up to date.',
     offer: ['API integrations and data synchronization', 'Scripts, workflow automation, and bots', 'AI-assisted tools for well-defined tasks'],
     outcome: 'Fewer manual handoffs, with clear checks where a person still needs to make a decision.',
   },
   {
-    id: 'support', number: '04', title: 'Repairs, improvements & support', short: 'Support',
+    id: 'support', title: 'Repairs, improvements & support',
     summary: 'Recover a broken site, modernize an existing system, or get a dependable pair of hands.',
     problem: 'A site is slow or unreliable, the original developer is unavailable, or maintenance has fallen behind. You need to understand what’s wrong before committing to a rebuild.',
     offer: ['Technical investigation, repairs, and modernization', 'Performance, security, and maintenance reviews', 'Documentation, handover, and ongoing support'],

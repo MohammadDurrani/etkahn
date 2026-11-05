@@ -6,13 +6,11 @@ import { email, services } from '../data/site';
 <Site title="Contact & Get a Quote — Etkahn" description="Tell Etkahn what you’re working on. Inquire about a website, custom software, integrations, automation, or technical support.">
   <section class="wrap contact-layout">
     <div class="contact-copy">
-      <p class="eyebrow"><span class="signal"></span> Get in touch</p>
       <h1>Tell us what <em>you’re working on.</em></h1>
       <p class="lead">Whether you need something built, improved, connected, or repaired, we’d like to understand the problem.</p>
-      <div class="contact-email"><span class="eyebrow">Prefer to write directly?</span><a class="text-link" href={`mailto:${email}`}>{email} <Arrow /></a></div>
+      <div class="contact-email"><a class="text-link" href={`mailto:${email}`}>{email} <Arrow /></a></div>
     </div>
     <div class="contact-sheet">
-      <p class="sheet-index micro"><span>ETK / INQUIRY</span><span>↗</span></p>
       <h2>Start a project</h2>
       <p>A few lines about what you’re trying to do is enough to get started.</p>
       <form id="inquiry" data-email={email} hidden>

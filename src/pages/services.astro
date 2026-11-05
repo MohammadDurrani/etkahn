@@ -1,25 +1,19 @@
 ---
 import Site from '../layouts/Site.astro';
-import Arrow from '../components/Arrow.astro';
 import Closing from '../components/Closing.astro';
 import { services } from '../data/site';
 ---
 <Site title="Services — Etkahn" description="Website design and development, custom software, integrations and automation, and technical repairs and support from Etkahn.">
   <section class="page-hero dark">
     <div class="wrap page-hero-inner">
-      <p class="eyebrow"><span class="signal"></span> Capabilities / 01–04</p>
       <div class="page-heading"><h1>Build, connect,<br /> <em>and improve.</em></h1><p class="lead">A new website, a tool your team is missing, or a system that needs attention. Start with the problem you want to solve.</p></div>
-      <nav class="service-jumps" aria-label="Service areas">
-        {services.map(({ id, number, short }) => <a href={`#${id}`}><span class="micro">{number}</span>{short}<Arrow /></a>)}
-      </nav>
     </div>
   </section>
   <div class="wrap service-details">
     {services.map((service) => (
       <section id={service.id} class="service-detail">
-        <div class="service-number" aria-hidden="true">{service.number}<span>.</span></div>
-        <div class="service-problem"><p class="eyebrow">The problem</p><h2>{service.title}</h2><p>{service.problem}</p></div>
-        <div class="service-offer"><p class="eyebrow">What we can do</p><ul role="list">{service.offer.map((item) => <li>{item}</li>)}</ul><p class="service-outcome"><span class="eyebrow">The goal</span>{service.outcome}</p></div>
+        <div class="service-problem"><h2>{service.title}</h2><p>{service.problem}</p></div>
+        <div class="service-offer"><ul role="list">{service.offer.map((item) => <li>{item}</li>)}</ul><p class="service-outcome">{service.outcome}</p></div>
       </section>
     ))}
   </div>
