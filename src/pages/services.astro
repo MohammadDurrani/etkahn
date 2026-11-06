@@ -1,0 +1,21 @@
+---
+import Site from '../layouts/Site.astro';
+import Closing from '../components/Closing.astro';
+import { services } from '../data/site';
+---
+<Site title="Services — Etkahn" description="Website design and development, custom software, integrations and automation, and technical repairs and support from Etkahn.">
+  <section class="page-hero dark">
+    <div class="wrap page-hero-inner">
+      <div class="page-heading"><h1>Build, connect,<br /> <em>and improve.</em></h1><p class="lead">A new website, a tool your team is missing, or a system that needs attention. Start with the problem you want to solve.</p></div>
+    </div>
+  </section>
+  <div class="wrap service-details">
+    {services.map((service) => (
+      <section id={service.id} class="service-detail">
+        <div class="service-problem"><h2>{service.title}</h2><p>{service.problem}</p></div>
+        <div class="service-offer"><ul role="list">{service.offer.map((item) => <li>{item}</li>)}</ul><p class="service-outcome">{service.outcome}</p></div>
+      </section>
+    ))}
+  </div>
+  <Closing title="Start with" accent="the problem." description="Tell us what’s getting in your way. We can work out the technical options together." label="Get a quote" />
+</Site>

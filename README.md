@@ -1,55 +1,53 @@
 # Etkahn
 
-Etkahn's technology and automation studio website, built with React, vinext, and the OpenAI Sites hosting runtime.
+A static Astro site for Etkahn, with Home, Services, About, Work, and Contact pages.
 
-The site includes:
+## Run locally
 
-- a Famous-inspired agency homepage
-- eight technology services and eight productised packages priced in PKR
-- a persistent cart and invoice-by-email checkout
-- privacy, terms, returns/refunds, and shipping/service-delivery policies
-- consistent local office and public contact details across the site and policies
+Use Node.js 22.19 or later.
 
-## Local development
-
-Requires Node.js `>=22.13.0`.
-
-```bash
-npm install
+```sh
+npm ci
 npm run dev
+npm run build
+npm run preview
 ```
 
-Open `http://localhost:5173`. Do not open the HTML source files directly; the development server supplies the styles, scripts, and application routes.
+`npm run build` writes the static site to `dist/`. For local testing of the contact endpoint alongside the built pages, run `npx wrangler dev` after the build. Wrangler simulates email delivery locally. The canonical origin is set in `astro.config.mjs`.
 
-## Verification
+## Deploy to Cloudflare Workers
 
-```bash
-npm test
+In the `etkahn` Worker's **Settings → Builds**, connect the GitHub repository with `main` as the production branch. Use the repository root, `npm run build` as the build command, and `npm run deploy` as the deploy command. For a manual deployment, run `npm run build` followed by `npm run deploy`. Use `npm run deploy:dry-run` to validate the bundle locally.
+
+## Add portfolio media
+
+Put approved images and videos in `public/media/projects/`. Add or update the matching `media` entry in `src/data/projects.ts`. Public paths start with `/media/projects/`.
+
+```ts
+media: {
+  image: '/media/projects/example.webp',
+  alt: 'A description of what the screenshot shows.',
+  caption: 'A short caption for the Work page.',
+  ratio: '4 / 3',
+  // Optional demo and poster. Keep the still image for the homepage preview.
+  poster: '/media/projects/example-poster.webp',
+  video: { webm: '/media/projects/example.webm', mp4: '/media/projects/example.mp4' },
+},
 ```
 
-The test command builds the production worker and verifies the homepage, checkout, policy routes, eight PKR-priced packages, and cart scripts.
+Static images can use WebP, AVIF, JPEG, or PNG. Use `srcset` and `sizes` if you have multiple image widths. With no media entry, the project displays its own typographic artwork. The Pankaj Mishra screenshot comes from the approved project record in the previous Etkahn checkout. Aureon Hub and Goldfinch Construction need approved media and confirmation of the scope and delivery details before expanding their entries.
 
-The current PKR package prices use an approximate conversion rate of PKR 278 per USD, rounded from the State Bank of Pakistan M2M rate of 277.6522 on 13 August 2026.
+## Contact delivery
 
-## Cloudflare Workers deployment
+The form posts to `/api/contact`. The Worker validates the submission, rate-limits by client IP, and sends to `hello@etkahn.com` through the Cloudflare email binding. Replies go to the visitor’s address. The direct email link works with JavaScript disabled.
 
-`wrangler.jsonc` is the production source of truth for the `etkahn` Worker and its `etkahn.com` and `www.etkahn.com` custom domains. The Vite Cloudflare plugin produces the Worker bundle and static assets in `dist/`.
+Verify that Cloudflare Email Service can send from `website@etkahn.com` to the verified destination `hello@etkahn.com`. Cloudflare Email Routing forwards the domain aliases to the verified Gmail inbox. In Gmail, create filters under **Settings → See all settings → Filters and Blocked Addresses** and apply the corresponding labels.
 
-For Cloudflare Workers Builds, connect this GitHub repository with:
+| Gmail search criteria | Label |
+| --- | --- |
+| `to:hello@etkahn.com` | Hello |
+| `to:billing@etkahn.com` | Billing |
+| `to:support@etkahn.com` | Support |
+| `to:mohammad.durrani@etkahn.com` | Mohammad Durrani |
 
-- production branch: `main`
-- build command: `npm test`
-- deploy command: `npx wrangler deploy`
-- non-production deploy command: `npx wrangler versions upload`
-- root directory: `/`
-
-After that one-time connection, pushes to `main` deploy automatically and other branches receive preview versions.
-
-For a local deployment after authenticating Wrangler:
-
-```bash
-npm test
-npm run deploy
-```
-
-`.openai/hosting.json` retains the existing Etkahn Sites project link as a separate fallback hosting target.
+Test the form and forwarding rules after deployment.

@@ -1,0 +1,82 @@
+---
+import Site from '../layouts/Site.astro';
+import Arrow from '../components/Arrow.astro';
+import { email, otherService, services } from '../data/site';
+---
+<Site title="Contact & Get a Quote — Etkahn" description="Tell Etkahn what you’re working on. Inquire about a website, custom software, integrations, automation, or technical support.">
+  <section class="wrap contact-layout">
+    <div class="contact-copy">
+      <h1>Tell us what <em>you’re working on.</em></h1>
+      <p class="lead">Whether you need something built, improved, connected, or repaired, we’d like to understand the problem.</p>
+      <div class="contact-email"><a class="text-link" href={`mailto:${email}`}>{email} <Arrow /></a></div>
+    </div>
+    <div class="contact-sheet">
+      <h2>Start a project</h2>
+      <p>A few lines about what you’re trying to do is enough to get started.</p>
+      <form id="inquiry" action="/api/contact" method="post" data-email={email} hidden>
+        <div class="field-pair">
+          <label for="name">Name <span class="required-mark" aria-hidden="true">*</span><input id="name" name="name" autocomplete="name" required maxlength="120" /></label>
+          <label for="email">Email <span class="required-mark" aria-hidden="true">*</span><input id="email" name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+        </div>
+        <label for="service">What do you need help with? <span class="optional">Optional</span>
+          <select id="service" name="service">
+            <option value="">Choose a service</option>
+            {services.map(({ title }) => <option>{title}</option>)}
+            <option>{otherService}</option>
+          </select>
+        </label>
+        <label for="project">Tell us about your project <span class="required-mark" aria-hidden="true">*</span><textarea id="project" name="project" required maxlength="1000" rows="4"></textarea></label>
+        <label for="website">Website or relevant link <span class="optional">Optional</span><input id="website" name="website" type="url" autocomplete="url" placeholder="https://" maxlength="350" /></label>
+        <div hidden><label>Fax number <input name="fax" tabindex="-1" autocomplete="off" /></label></div>
+        <p id="form-note" class="form-note">Fields marked * are required.</p>
+        <button type="submit" class="button" aria-describedby="form-note">Send inquiry <Arrow /></button>
+        <p id="inquiry-status" class="form-note" role="status"></p>
+      </form>
+      <noscript><p><a class="text-link" href={`mailto:${email}`}>Write to {email} <Arrow /></a></p></noscript>
+    </div>
+  </section>
+</Site>
+<script>
+  const form = document.querySelector<HTMLFormElement>('#inquiry');
+  const project = document.querySelector<HTMLTextAreaElement>('#project');
+  const name = document.querySelector<HTMLInputElement>('#name');
+  const status = document.querySelector('#inquiry-status');
+  const submit = form?.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+  if (form && project && name && status && submit) {
+    for (const field of [name, project]) {
+      field.addEventListener('input', () => field.setCustomValidity(''));
+    }
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (submit.disabled) return;
+      for (const field of [name, project]) {
+        field.setCustomValidity(field.value.trim() ? '' : 'Please fill out this field.');
+      }
+      if (!form.reportValidity()) return;
+
+      submit.disabled = true;
+      status.textContent = 'Sending your inquiry…';
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form))),
+        });
+        if (response.status === 429) {
+          status.textContent = 'Too many submissions. Please wait a minute and try again.';
+        } else if (response.ok && (await response.json()).sent === true) {
+          form.reset();
+          status.textContent = 'Your inquiry was sent.';
+        } else {
+          throw new Error('Inquiry delivery failed');
+        }
+      } catch {
+        status.textContent = `We couldn’t send your inquiry. Try again or email ${form.dataset.email} directly.`;
+      } finally {
+        submit.disabled = false;
+      }
+    });
+    form.hidden = false;
+  }
+</script>

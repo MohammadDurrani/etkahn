@@ -1,0 +1,45 @@
+---
+import type { Project } from '../data/projects';
+
+interface Props { project: Project; preview?: boolean }
+const { project, preview = false } = Astro.props;
+const { id, name, media } = project;
+const still = media?.image || media?.poster;
+const hasVideo = !preview && (media?.video?.webm || media?.video?.mp4);
+---
+<figure class:list={['project-media', `art-${id}`]} style={media?.ratio ? `--media-ratio:${media.ratio}` : undefined}>
+  <div class="media-frame">
+    {hasVideo ? (
+      <video controls muted playsinline preload="none" poster={media?.poster || still} aria-label={`${name} demonstration`}>
+        {media?.video?.webm && <source src={media.video.webm} type="video/webm" />}
+        {media?.video?.mp4 && <source src={media.video.mp4} type="video/mp4" />}
+        {still && <img src={still} alt={media?.alt ?? name} loading="lazy" />}
+      </video>
+    ) : still ? (
+      <img src={still} srcset={media?.srcset} sizes={media?.sizes} alt={media?.alt ?? name} loading="lazy" decoding="async" />
+    ) : (
+      <div class="project-art" aria-hidden="true">
+        <svg class="art-motif" viewBox="0 0 500 330" fill="none">
+          {id === 'pankaj-mishra' ? (
+            <g transform="rotate(-15 350 166)">
+              {[0, 1, 2, 3, 4, 5, 6].map((step) => <rect x={246 + step * 8} y={27 + step * 6} width="182" height="263" rx="3" />)}
+            </g>
+          ) : id === 'aureon-hub' ? (
+            <g>
+              {[0, 1, 2, 3, 4].map((step) => <path d={`m350 ${40 + step * 22} 133 68-133 68-133-68 133-68Z`} />)}
+              <path d="M350 40v224m-133-156v88m266-88v88" stroke-dasharray="3 5" />
+            </g>
+          ) : (
+            <g>
+              {[0, 1, 2, 3, 4, 5, 6].map((step) => <path d={`M${223 + step * 29} 293V${160 - step * 15}l94-45v181`} />)}
+              <path d="M190 259h310m-310 34h310M190 220h310" stroke-dasharray="3 5" />
+            </g>
+          )}
+        </svg>
+        <span class="art-name">{name}</span>
+        <span class="art-cross">+</span>
+      </div>
+    )}
+  </div>
+  {!preview && media?.caption && <figcaption>{media.caption}</figcaption>}
+</figure>

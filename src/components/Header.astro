@@ -1,0 +1,36 @@
+---
+import Mark from './Mark.astro';
+import Arrow from './Arrow.astro';
+import { navigation } from '../data/site';
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="/" class="brand" aria-label="Etkahn home"><Mark />Etkahn<span>.</span></a>
+    <nav class="desktop-nav" aria-label="Main navigation">
+      {navigation.map(({ href, label }) => <a href={href} aria-current={path === href ? 'page' : undefined}>{label}</a>)}
+    </nav>
+    <a class="button button-small header-cta" href="/contact">Get a quote <Arrow /></a>
+    <details class="mobile-nav">
+      <summary><span>Menu</span><span class="menu-icon" aria-hidden="true"></span></summary>
+      <nav aria-label="Mobile navigation">
+        {navigation.map(({ href, label }) => <a href={href} aria-current={path === href ? 'page' : undefined}>{label} <Arrow /></a>)}
+        <a href="/contact" class="button">Get a quote <Arrow /></a>
+      </nav>
+    </details>
+  </div>
+</header>
+<script>
+  const menu = document.querySelector<HTMLDetailsElement>('.mobile-nav');
+  if (menu) {
+    document.addEventListener('keydown', (event) => {
+      if (event.key !== 'Escape' || !menu.open) return;
+      menu.open = false;
+      menu.querySelector('summary')?.focus();
+    });
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Node && !menu.contains(event.target)) menu.open = false;
+    });
+  }
+</script>

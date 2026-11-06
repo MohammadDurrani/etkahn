@@ -1,0 +1,13 @@
+---
+import Arrow from './Arrow.astro';
+const { title, accent, description, label = 'Tell us about it' } = Astro.props;
+---
+<section class="closing dark">
+  <div class="wrap closing-inner">
+    <div>
+      <h2>{title} <em>{accent}</em></h2>
+      <p class="lead">{description}</p>
+    </div>
+    <a href="/contact" class="button button-light">{label} <Arrow /></a>
+  </div>
+</section>
