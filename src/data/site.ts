@@ -1,4 +1,5 @@
 export const email = 'hello@etkahn.com';
+export const otherService = 'Something else / I’m unsure';
 export const navigation = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },

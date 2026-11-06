@@ -13,7 +13,11 @@ npm run build
 npm run preview
 ```
 
-`npm run build` writes the static site to `dist/`. Configure the static host to serve directory indexes at extensionless URLs such as `/work`. The canonical origin is set in `astro.config.mjs`.
+`npm run build` writes the static site to `dist/`. For local testing of the contact endpoint alongside the built pages, run `npx wrangler dev` after the build. Wrangler simulates email delivery locally. The canonical origin is set in `astro.config.mjs`.
+
+## Deploy to Cloudflare Workers
+
+In the `etkahn` Worker's **Settings → Builds**, connect the GitHub repository with `main` as the production branch. Use the repository root, `npm run build` as the build command, and `npm run deploy` as the deploy command. For a manual deployment, run `npm run build` followed by `npm run deploy`. Use `npm run deploy:dry-run` to validate the bundle locally.
 
 ## Add portfolio media
 
@@ -35,6 +39,15 @@ Static images can use WebP, AVIF, JPEG, or PNG. Use `srcset` and `sizes` if you 
 
 ## Contact delivery
 
-The inquiry form validates fields and opens a prefilled draft in the visitor’s email app. The visitor reviews and sends the email from that app. A direct email link works with JavaScript disabled.
+The form posts to `/api/contact`. The Worker validates the submission, rate-limits by client IP, and sends to `hello@etkahn.com` through the Cloudflare email binding. Replies go to the visitor’s address. The direct email link works with JavaScript disabled.
 
-Server-side delivery would require a POST endpoint, server-side field validation and abuse controls, and a configured mail service with a verified sender. Keep mail credentials on the server. Report success only after the service accepts the message and keep the direct email link available if delivery fails.
+Verify that Cloudflare Email Service can send from `website@etkahn.com` to the verified destination `hello@etkahn.com`. Cloudflare Email Routing forwards the domain aliases to the verified Gmail inbox. In Gmail, create filters under **Settings → See all settings → Filters and Blocked Addresses** and apply the corresponding labels.
+
+| Gmail search criteria | Label |
+| --- | --- |
+| `to:hello@etkahn.com` | Hello |
+| `to:billing@etkahn.com` | Billing |
+| `to:support@etkahn.com` | Support |
+| `to:mohammad.durrani@etkahn.com` | Mohammad Durrani |
+
+Test the form and forwarding rules after deployment.

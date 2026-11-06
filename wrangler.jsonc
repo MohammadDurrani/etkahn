@@ -1,0 +1,23 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "etkahn",
+  "main": "src/worker.ts",
+  "compatibility_date": "2026-11-06",
+  "routes": [
+    { "pattern": "etkahn.com", "custom_domain": true },
+    { "pattern": "www.etkahn.com", "custom_domain": true }
+  ],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
+    "run_worker_first": ["/api/contact"]
+  },
+  "send_email": [
+    { "name": "CONTACT_EMAIL", "destination_address": "hello@etkahn.com" }
+  ],
+  "ratelimits": [
+    { "name": "CONTACT_RATE_LIMIT", "namespace_id": "10483", "simple": { "limit": 5, "period": 60 } }
+  ],
+  "observability": { "enabled": true }
+}
